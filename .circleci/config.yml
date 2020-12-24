@@ -6,7 +6,6 @@ commands:
     parameters:
       # Add parameter here   
     steps:
-      - run: sudo apt-get install -y tar
       - run:
           name: Destroy environments
           when: on_fail
@@ -148,6 +147,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - run: sudo apt-get install -y tar
       - run:
           name: Ensure back-end infrastructure exists
           command: |
