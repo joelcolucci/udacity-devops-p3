@@ -147,7 +147,10 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - run: sudo apt-get install -y tar
+      - run:
+        name: Install tar; required by persist to workspace
+        command: |
+          sudo apt-get install -y tar
       - run:
           name: Ensure back-end infrastructure exists
           command: |
