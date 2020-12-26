@@ -209,7 +209,7 @@ jobs:
       # Checkout code from git
       - checkout
       - run:
-          name: Udate environment variables
+          name: Update environment variables
           command: |
             echo "ENVIRONMENT=production" > backend/.env
             echo "NODE_ENV=production" >> backend/.env
@@ -227,7 +227,7 @@ jobs:
           command: |
             # Your code here
             cd backend
-            npm install
+            npm install && npm run build
             # Core assumption is that we can read ths file in the next job
             npm run migrations >> ./migration_output.txt
       - run:
