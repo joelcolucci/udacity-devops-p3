@@ -234,6 +234,7 @@ jobs:
           name: Send migration results to memstash
           command: |
             # Your code here
+            cd backend
             OUTPUT=$(cat ./migration_output.txt)
             SUCCESS=0
             if [[ $OUTPUT == *"has been executed successfully"* ]]; then
