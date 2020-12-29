@@ -249,20 +249,28 @@ jobs:
       - image: amazon/aws-cli
     steps:
       # Checkout code from git
+      - checkout
       - run:
           name: Install dependencies
           command: |
             # your code here
+            cd frontend
+            npm install
       - run:
           name: Get backend url
           command: |
             # your code here
+            BACKEND_IP=$(aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress')
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
+            npm run build:prod
       - run:
           name: Deploy frontend objects
           command: |
             # your code here
+            # Copy the files to your new S3 Bucket using AWS CLI (compiled front-end files can be found in a folder called ./dist).
+            aws s3 sync ./dist s3://udapeople-${CIRCLE_WORKFLOW_ID}
       # Here's where you will add some code to rollback on failure      
                     
   deploy-backend:
@@ -270,16 +278,24 @@ jobs:
       - image: python:3.7-alpine3.11
     steps:
       # Checkout code from git
+      - checkout
       # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints: ["87:15:d0:14:78:d1:dc:e9:8c:25:5f:d4:ef:2b:3b:98"]
       # attach workspace
+      - attach_workspace:
+          at: .circleci/ansible/
       - run:
           name: Install dependencies
           command: |
             # your code here
+            cd backend
+            npm install
       - run:
           name: Deploy backend
           command: |
             # your code here
+            ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure  
 
   smoke-test:
