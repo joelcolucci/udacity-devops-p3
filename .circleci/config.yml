@@ -254,7 +254,8 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y npm
+            curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
+=           yum -y install nodejs
             cd frontend
             npm install
       - run:
