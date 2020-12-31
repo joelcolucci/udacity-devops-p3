@@ -254,6 +254,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
+            yum install -y nodejs
             cd frontend
             npm install
       - run:
@@ -289,6 +290,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
+            yum install -y nodejs
             cd backend
             npm install
       - run:
