@@ -254,7 +254,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y nodejs
+            yum install -y npm
             cd frontend
             npm install
       - run:
@@ -290,13 +290,12 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y nodejs
-            cd backend
-            npm install
+            yum install -y tar gzip
       - run:
           name: Deploy backend
           command: |
             # your code here
+            tar -C backend -czvf artifact.tar.gz .
             ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/deploy-backend.yml
       # Here's where you will add some code to rollback on failure  
 
