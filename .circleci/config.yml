@@ -255,7 +255,7 @@ jobs:
           command: |
             # your code here
             curl --silent --location https://rpm.nodesource.com/setup_14.x | bash -
-=           yum -y install nodejs
+            yum -y install nodejs
             cd frontend
             npm install
       - run:
@@ -291,7 +291,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y tar gzip
+            apk add tar gzip
       - run:
           name: Deploy backend
           command: |
